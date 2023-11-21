@@ -1,1 +1,1 @@
-# MandelBrotSet
+# MandelbrotSet
