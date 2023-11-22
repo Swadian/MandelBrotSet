@@ -72,6 +72,7 @@ size_t ComplexPlane::countIterations(Vector2f coord) {
         if(z.x * z.x + z.y * z.y > 4.0) { break; }
         count++;
     }
+    
     return count;
 }
 
@@ -82,28 +83,44 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) {
         b = 0;
     }
     else if (count == 0 && count < 8) {
-
+        r = 204;
+        g = 0;
+        b = 0;
     }
     else if (count >= 8 && count < 16) {
-
+        r = 204;
+        g = 102;
+        b = 0;
     }
     else if (count >= 16 && count < 24) {
-
+        r = 255;
+        g = 255;
+        b = 102;
     }
     else if (count >= 24 && count < 32) {
-        
+        r = 102;
+        g = 178;
+        b = 255;
     }
     else if (count >= 32 && count < 40) {
-
+        r = 178;
+        g = 102;
+        b = 255;
     }
     else if (count >= 40 && count < 48){
-
+        r = 255;
+        b = 153;
+        g = 255;
     }
     else if (count >= 48 && count < 56) {
-
+        r = 255;
+        b = 204;
+        g = 229;
     }
     else {
-        
+        r = 255;
+        g = 255;
+        b = 255;
     }
 
 }
