@@ -31,11 +31,20 @@ void ComplexPlane::updateRender() {
 }
 
 void ComplexPlane::zoomIn() {
+    m_zoomCount++;
+	float xSize = BASE_WIDTH * (pow(BASE_ZOOM,m_zoomCount));
+	float ySize = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM,m_zoomCount));
+	m_plane_size(xSize,ySize);
+	m_State = CALCULATING;
 
 }
 
 void ComplexPlane::zoomOut() {
-
+    m_zoomCount--;
+	float xSize = BASE_WIDTH * (pow(BASE_ZOOM,m_zoomCount));
+	float ySize = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM,m_zoomCount));
+	m_plane_size(xSize,ySize);
+	m_State = CALCULATING;
 }
 
 void ComplexPlane::setCenter(Vector2i mousePixel) {
@@ -54,16 +63,14 @@ size_t ComplexPlane::countIterations(Vector2f coord) {
     size_t count = 0;
     Vector2f z = coord;
 
-    while(count < MAX_ITER)
-    {
+    while(count < MAX_ITER) {
         float x = z.x * z.x - z.y * z.y + coord.x;
         float y = 2.0 * z.x * z.y + coord.y;
 
         z = Vector2f(x,y);
 
-        if(z.x * z.x + z.y * z.y > 4.0)
-            break;
-        count++
+        if(z.x * z.x + z.y * z.y > 4.0) { break; }
+        count++;
     }
     return count;
 }
