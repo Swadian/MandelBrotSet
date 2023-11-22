@@ -24,7 +24,7 @@ void ComplexPlane::updateRender() {
         {
             for(unsigned int i = 0; i < m_pixel_size.y; i++)
             {
-                m_vArray.position = ;
+                m_vArray[j + i * pixelWidth].position = (m_pixel_size.j, m_pixel_size.i);
             }
         }
     }
@@ -51,7 +51,21 @@ void ComplexPlane::loadText(Text& text) {
 }
 
 size_t ComplexPlane::countIterations(Vector2f coord) {
+    size_t count = 0;
+    Vector2f z = coord;
 
+    while(count < MAX_ITER)
+    {
+        float x = z.x * z.x - z.y * z.y + coord.x;
+        float y = 2.0 * z.x * z.y + coord.y;
+
+        z = Vector2f(x,y);
+
+        if(z.x * z.x + z.y * z.y > 4.0)
+            break;
+        count++
+    }
+    return count;
 }
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) {
