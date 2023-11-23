@@ -12,7 +12,7 @@ const float BASE_HEIGHT = 4.0;
 const float BASE_ZOOM = 0.5;
 
 enum State {CALCULATING, DISPLAYING};
-Class ComplexPlane() : public Drawable {
+class ComplexPlane() : public Drawable {
     public:
         ComplexPlane(int pixelWidth, int pixelHeight);
         void draw(RenderTarget& target, RenderStates states) const;

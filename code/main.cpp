@@ -14,13 +14,16 @@ int main() {
         cout << "Error loading font" << endl;
     }
 
-    Text("",font,24);
+    Text text("",font,24);
 
     while(window.isOpen()) {
 
         sf::Event event;
+        
         while (window.pollEvent(event)) {
+            
             if (event.type == Event::closed) { window.close(); }
+            
             if (event.type == Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Right) {
                     zoomOut();
@@ -35,7 +38,15 @@ int main() {
                 plane.setMouseLocation(mouseButton);
             }
         }
+        
         if (Keyboard::isKeyPressed(Keyboard::Escape)) { window.close(); }
+
+        plane.updateRender();
+        plane.loadText(text);
+        window.clear();
+        window.draw(plane);
+        window.draw(text);
+        window.display();
     }
 }
 
