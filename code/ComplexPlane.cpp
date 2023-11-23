@@ -1,13 +1,10 @@
 #include "ComplexPlane.h"
 
 ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight) {
-    m_pixel_size.x = pixelWidth;
-    m_pixel_size.y = pixelHeight;
+    m_pixel_size = { pixelWidth, pixelHeight };
     m_aspectRatio = (pixelHeight*1.0)/(pixelWidth*1.0);
-    m_plane_center.x = 0.0;
-    m_plane_center.y = 0.0;
-    m_plane_size.x = BASE_WIDTH;
-    m_plane_size.y = BASE_HEIGHT * m_aspectRatio;
+    m_plane_center = { 0,0 };
+    m_plane_size = { BASE_WIDTH, BASE_HEIGHT * m_aspectRatio };
     m_zoomCount = 0;
     m_State = State::CALCULATING;
     m_vArray.setPrimitiveType(Points);
@@ -21,7 +18,7 @@ void ComplexPlane::draw(RenderTarget& target, RenderStates states) const {
 void ComplexPlane::updateRender() {
     if(m_State == State::CALCULATING)
     {
-        int iterations = 0;
+        size_t iterations = 0;
         for(int i = 0; i < m_pixel_size.y; i++)
         {
             for(int j = 0; j < m_pixel_size.x; j++)
@@ -59,8 +56,8 @@ void ComplexPlane::setCenter(Vector2i mousePixel) {
     m_State = State::CALCULATING;
 }
 
-void ComplexPlane::setMouseLocation(Vector2i mousPixel) {
-    m_mouseLocation = mapPixelToCoords(mousPixel);
+void ComplexPlane::setMouseLocation(Vector2i mousePixel) {
+    m_mouseLocation = mapPixelToCoords(mousePixel);
 }
 
 void ComplexPlane::loadText(Text& text) {
@@ -141,7 +138,7 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) {
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel) {
     Vector2f planeCord;
-    planeCord.x = ((mousePixel.x - 0) / (m_plane_size.x - 0) ) * (m_plane_size.x) + (m_plane_center.x - m_plane_size.x / 2.0);
-    planeCord.y = ((mousePixel.y - m_plane_size.y) / (0-m_plane_size.y)) * (m_plane_size.y) + (m_plane_center.y - m_plane_size.y / 2.0);
+    planeCord.x = ((mousePixel.x - 0) / (1.0 * m_plane_size.x - 0) ) * (m_plane_size.x) + (m_plane_center.x - m_plane_size.x / 2.0);
+    planeCord.y = ((mousePixel.y - m_plane_size.y) / (0 - m_plane_size.y * 1.0)) * (m_plane_size.y) + (m_plane_center.y - m_plane_size.y / 2.0);
     return planeCord;
 } 
