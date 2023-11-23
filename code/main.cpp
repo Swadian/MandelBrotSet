@@ -4,10 +4,12 @@ using namespace sf;
 using namespace std;
 
 int main() {
-    VideoMode vm(VideoMode::getDesktopMode().width/2,VideoMode::getDesktopMode().height / 2);
-    RenderWidnow window(vm,"Mandelbrot Set",Style::Default);
+    int width = VideoMode::getDesktopMode().width/2;
+    int height = VideoMode::getDesktopMode().height / 2;
+    VideoMode vm(width, height);
+    RenderWindow window(vm,"Mandelbrot Set",Style::Default);
 
-    ComplexPlane plane(vm.height(),vm.width());
+    ComplexPlane plane(width, height);
 
     Font font;
     if (!font.loadFromFile("Roboto-Light.ttf")) {
@@ -22,20 +24,23 @@ int main() {
         
         while (window.pollEvent(event)) {
             
-            if (event.type == Event::closed) { window.close(); }
+            if (event.type == Event::Closed) { window.close(); }
             
             if (event.type == Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Right) {
-                    zoomOut();
-                    plane.setCenter(mouseButton);
+                    plane.zoomOut();
+                    Vector2i position(event.mouseButton.x, event.mouseButton.y);
+                    plane.setCenter(position);
                 }
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    zoomIn();
-                    plane.setCenter(mouseButton);
+                    plane.zoomIn();
+                    Vector2i position(event.mouseButton.x, event.mouseButton.y);
+                    plane.setCenter(position);
                 }
             }
             if (event.type == Event::MouseMoved) {
-                plane.setMouseLocation(mouseButton);
+                Vector2i position(event.mouseMove.x, event.mouseMove.y);
+                plane.setMouseLocation(position);
             }
         }
         
