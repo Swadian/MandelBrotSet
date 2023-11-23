@@ -27,12 +27,12 @@ void ComplexPlane::updateRender() {
         {
             for(int j = 0; j < m_pixel_size.x; j++)
             {
-                m_vArray[j + i * m_pixel_size.x].position = {j, i};
+                m_vArray[j + i * m_pixel_size.x].position = {(float)j, (float)i};
                 Vector2f coord = mapPixelToCoords(Vector2i(j, i));
                 iterations = countIterations(coord);
-                Unit8 r, g, b;
+                Uint8 r, g, b;
                 iterationsToRGB(iterations, r, g, b);
-                m_vArray[j + i * pixelWidth].color = {r, g, b};
+                m_vArray[j + i * m_pixel_size.x].color = {r, g, b};
             }
         }
     }
@@ -43,7 +43,7 @@ void ComplexPlane::zoomIn() {
     m_zoomCount++;
 	float xSize = BASE_WIDTH * (pow(BASE_ZOOM,m_zoomCount));
 	float ySize = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM,m_zoomCount));
-	m_plane_size(xSize,ySize);
+	m_plane_size = {xSize,ySize};
 	m_State = State::CALCULATING;
 }
 
@@ -51,7 +51,7 @@ void ComplexPlane::zoomOut() {
     m_zoomCount--;
 	float xSize = BASE_WIDTH * (pow(BASE_ZOOM,m_zoomCount));
 	float ySize = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM,m_zoomCount));
-	m_plane_size(xSize,ySize);
+	m_plane_size = {xSize,ySize};
 	m_State = State::CALCULATING;
 }
 
@@ -68,10 +68,11 @@ void ComplexPlane::loadText(Text& text) {
     ostringstream strm;
     strm << "Mandelbrot Set \n" << 
             "Center: (" << m_plane_center.x << "," << m_plane_center.y << ") \n" <<
-            fixed << setprecision(5) <<
             "Cursor: (" << m_mouseLocation.x << "," << m_mouseLocation.y << ") \n" <<
             "Left-click to Zoom in \n" << 
             "Right-click to Zoom out \n";
+    
+    text.setString(strm.str());
 }
 
 size_t ComplexPlane::countIterations(Vector2f coord) {
