@@ -1,6 +1,5 @@
 #include "ComplexPlane.h"
 
-
 ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight) {
     m_pixel_size.x = pixelWidth;
     m_pixel_size.y = pixelHeight;

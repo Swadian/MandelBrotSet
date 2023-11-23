@@ -1,7 +1,4 @@
-#include "ComplexPlane.cpp"
-
-using namespace sf;
-using namespace std;
+#include "ComplexPlane.h"
 
 int main() {
     int width = VideoMode::getDesktopMode().width/2;

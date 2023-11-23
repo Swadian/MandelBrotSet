@@ -2,12 +2,11 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include <sstream>
-#include <vector>
 #include <complex>
 #include <cmath>
 
-using namespace sf;
 using namespace std;
+using namespace sf;
 
 const unsigned int MAX_ITER = 64;
 const float BASE_WIDTH = 4.0;
