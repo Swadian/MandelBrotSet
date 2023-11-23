@@ -44,7 +44,6 @@ void ComplexPlane::zoomIn() {
 	float ySize = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM,m_zoomCount));
 	m_plane_size(xSize,ySize);
 	m_State = State::CALCULATING;
-
 }
 
 void ComplexPlane::zoomOut() {
@@ -72,7 +71,6 @@ void ComplexPlane::loadText(Text& text) {
             "Cursor: (" << m_mouseLocation.x << "," << m_mouseLocation.y << ") \n" <<
             "Left-click to Zoom in \n" << 
             "Right-click to Zoom out \n";
-
 }
 
 size_t ComplexPlane::countIterations(Vector2f coord) {
@@ -138,7 +136,6 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) {
         g = 255;
         b = 255;
     }
-
 }
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel) {

@@ -26,12 +26,13 @@ Class ComplexPlane() : public Drawable {
         void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b);
         Vector2f mapPixelToCoords(Vector2i mousePixel);
         size_t countIterations(Vector2f coord);
-        Vector2i m_pixel_size;
+
         float m_aspectRatio;
-        Vector2f m_plane_center;
-        Vector2f m_plane_size;
         size_t m_zoomCount;
         State m_state;
+        Vector2i m_pixel_size;
+        Vector2f m_plane_center;
+        Vector2f m_plane_size;
         VertexArray m_vArray;
         Vector2f m_mouseLocation;       
 };
