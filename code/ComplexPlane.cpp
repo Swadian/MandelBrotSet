@@ -96,13 +96,13 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) {
     }
     else {
         float t = static_cast<float>(count) / 64; //interpolation factor
-                                                               //will have layer for each iteration
 
         Uint8 color1[3] = {255, 255, 255};
         Uint8 color2[3] = {0, 0, 0};
 
         //LERP 
-
+	//(1.0 - t) * a + (t * b);
+	// t = interpolationFactor, a = startingColor, b = endColor
         r = static_cast<Uint8>((1.0 - t) * color1[0] + t * color2[0]);
         g = static_cast<Uint8>((1.0 - t) * color1[1] + t * color2[1]);
         b = static_cast<Uint8>((1.0 - t) * color1[2] + t * color2[2]);
